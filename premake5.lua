@@ -3,8 +3,8 @@ project "GLFW"
 	language "C"
 	staticruntime "off"
 
-	targetdir ("$(SolutionDir)bin\\" .. outputdir .. "-%{prj.name}")
-	objdir ("$(SolutionDir)bin-int\\" .. outputdir .. "-%{prj.name}")
+	targetdir ("bin/" .. outputdir .. "-%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "-%{prj.name}")
 
 	files
 	{
@@ -28,6 +28,7 @@ project "GLFW"
 
 	filter "system:linux"
 		pic "On"
+
 		systemversion "latest"
 		
 		files
@@ -38,6 +39,7 @@ project "GLFW"
 			"src/xkb_unicode.c",
 			"src/posix_time.c",
 			"src/posix_thread.c",
+			"src/posix_module.c",
 			"src/glx_context.c",
 			"src/egl_context.c",
 			"src/osmesa_context.c",
@@ -72,11 +74,6 @@ project "GLFW"
 			"_CRT_SECURE_NO_WARNINGS"
 		}
 
-		links
-		{
-			"Dwmapi.lib"
-		}
-
 	filter "configurations:Debug"
 		runtime "Debug"
 		symbols "on"
@@ -84,9 +81,8 @@ project "GLFW"
 	filter "configurations:Release"
 		runtime "Release"
 		optimize "on"
-      symbols "on"
 
 	filter "configurations:Dist"
 		runtime "Release"
 		optimize "on"
-      symbols "off"
+        symbols "off"
