@@ -12,6 +12,8 @@ _ReSharper*
 CMakeSettings.json
 Win32
 x64
+bin
+bin-int
 Debug
 Release
 MinSizeRel
