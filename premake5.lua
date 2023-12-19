@@ -1,9 +1,10 @@
 project "GLFW"
 	kind "StaticLib"
 	language "C"
+	staticruntime "On"
 
-	targetdir ("bin/" .. outputdir .. "-%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "-%{prj.name}")
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	files
 	{
@@ -38,7 +39,6 @@ project "GLFW"
 			"src/xkb_unicode.c",
 			"src/posix_time.c",
 			"src/posix_thread.c",
-			"src/posix_module.c",
 			"src/glx_context.c",
 			"src/egl_context.c",
 			"src/osmesa_context.c",
@@ -52,7 +52,6 @@ project "GLFW"
 
 	filter "system:windows"
 		systemversion "latest"
-		staticruntime "On" --Sets <RuntimeLibrary> to "MultiThreaded"
 
 		files
 		{
@@ -74,15 +73,23 @@ project "GLFW"
 			"_CRT_SECURE_NO_WARNINGS"
 		}
 
+		links
+		{
+			"Dwmapi.lib"
+		}
+
 	filter "configurations:Debug"
+		staticruntime "On"
 		runtime "Debug"
-		symbols "on"
+		symbols "On"
 
 	filter "configurations:Release"
+		staticruntime "On"
 		runtime "Release"
-		optimize "on"
+		optimize "On"
 
 	filter "configurations:Dist"
+		staticruntime "On"
 		runtime "Release"
-		optimize "on"
-        symbols "off"
+		optimize "On"
+		symbols "Off"
